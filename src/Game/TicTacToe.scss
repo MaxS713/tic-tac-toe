@@ -1,0 +1,217 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 42px;
+  gap: 24px;
+
+  h1 {
+    font-weight: 400;
+    font-size: 42px;
+  }
+
+  button {
+    border: none;
+    background: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .game-grid {
+    position: relative;
+    width: calc(128px * 3);
+    height: calc(128px * 3);
+    margin-top: 24px;
+
+    .columns,
+    .rows,
+    .columns-line-overlay,
+    .rows-line-overlay {
+      position: absolute;
+      display: flex;
+      top: 0;
+      left: 0;
+    }
+
+    .columns-line-overlay {
+      left: -64px;
+    }
+
+    .rows-line-overlay {
+      top: -64px;
+    }
+
+    .columns,
+    .columns-line-overlay {
+
+      .column,
+      .column-line-overlay {
+        height: 0;
+        width: 128px;
+        z-index: 50;
+        pointer-events: none;
+
+
+        -webkit-animation: draw-column 1s;
+        -moz-animation: draw-column 1s;
+        -o-animation: draw-column 1s;
+        animation: draw-column 1s;
+        animation-fill-mode: forwards;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          border-right: 4px solid white;
+        }
+      }
+
+      .column-line-overlay {
+        height: 0;
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
+          border-right: 6px solid #f9f871;
+        }
+      }
+    }
+
+    .rows,
+    .rows-line-overlay {
+      flex-direction: column;
+      z-index: 50;
+      pointer-events: none;
+
+
+      .row,
+      .row-line-overlay {
+        height: 128px;
+        width: 0;
+
+        -webkit-animation: draw-row 1s;
+        -moz-animation: draw-row 1s;
+        -o-animation: draw-row 1s;
+        animation: draw-row 1s;
+        animation-fill-mode: forwards;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          border-bottom: 4px solid white;
+        }
+      }
+
+      .row-line-overlay {
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3) {
+          border-bottom: 6px solid #f9f871;
+        }
+      }
+    }
+
+    .diagonals-line-overlay-left,
+    .diagonals-line-overlay-right {
+      position: absolute;
+      width: calc(128px * 3);
+      height: calc(128px * 3);
+      top: 0;
+      left: 0;
+      z-index: 50;
+      pointer-events: none;
+
+
+      .diagonal-line-overlay {
+        position: relative;
+        width: 0;
+        height: 0;
+
+        -webkit-animation: draw-diagonal 1s;
+        -moz-animation: draw-diagonal 1s;
+        -o-animation: draw-diagonal 1s;
+        animation: draw-diagonal 1s;
+        animation-fill-mode: forwards;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 6px;
+          width: 141.421%;
+          background-color: #f9f871;
+          transform: rotate(45deg);
+          transform-origin: 0 0;
+        }
+      }
+    }
+
+    .diagonals-line-overlay-left {
+      .diagonal-line-overlay {
+        &::after {
+          content: '';
+          left: 380px;
+          transform: rotate(135deg);
+        }
+      }
+    }
+
+
+    .grid-inputs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: calc(128px * 3);
+
+      .grid-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 128px;
+        width: 128px;
+        font-size: 92px;
+        padding: 0;
+        opacity: 0.2;
+
+        &.filled {
+          opacity: 1;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .end-game-text {
+    color: #f9f871;
+  }
+
+  .restart-btn {
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 8px;
+    }
+  }
+}
+
+@keyframes draw-row {
+  100% {
+    width: calc(128px * 3);
+  }
+}
+
+@keyframes draw-column {
+  100% {
+    height: calc(128px * 3);
+  }
+}
+
+@keyframes draw-diagonal {
+  100% {
+    width: calc(128px * 3);
+    height: calc(128px * 3);
+  }
+}

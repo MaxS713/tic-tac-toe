@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react";
+import { LinesToShow, OverlayToShow } from './types.ts';
 
-export default function GridOverlay({ linesToShow, overlayToShow }) {
+export default function GridOverlay({
+  linesToShow,
+  overlayToShow,
+}: {
+  linesToShow: LinesToShow;
+  overlayToShow: OverlayToShow;
+}) {
   return (
     <>
       <div className="columns">
